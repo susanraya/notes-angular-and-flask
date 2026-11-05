@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v4
+**Documentation version:** v5
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ a simple notes app without login page
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 13 entries |
-| [Development](development/README.md) | 5 entries |
+| [Development](development/README.md) | 10 entries |
 | [Testing](testing/README.md) | 0 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
@@ -24,14 +24,14 @@ a simple notes app without login page
 | [Decisions (ADRs)](architecture/adr/README.md) | 4 decisions |
 | [Sprint plan](development/sprint-plan.md) | 3 sprints |
 | [Developer guide](development/developer-guide.md) | generated |
-| [API reference](development/api-reference.md) | 6 routes |
+| [API reference](development/api-reference.md) | 7 routes |
 | [Test report](testing/test-report.md) | not run yet |
-| [Tests](testing/test-cases.md) | 20 tests |
+| [Tests](testing/test-cases.md) | 58 tests |
 | [Deployment guide](deployment/deployment-guide.md) | not deployed yet |
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 4 versions |
+| [Changelog](CHANGELOG.md) | 5 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
@@ -66,8 +66,16 @@ a simple notes app without login page
 
 ### Development
 
-- No individual delivery confirmation for sub-tasks US-003-T1, US-003-T2, US-003-T3 -- only the parent story US-003 is marked delivered.
-- Reason for skipping US-011 is not provided in the input.
-- US-011 underpins the project's India-hosting/compliance boundary goal from Sprint 1's stated plan goal; skipping it conflicts with that stated goal and with the overall dev run status of 'completed' -- flagged as a discrepancy.
-- No ticket-level status provided for US-002, US-004, US-005, US-006, US-007, US-008, US-008-T1, US-008-T2, US-008-T3, US-009, US-010 despite the run being marked 'completed' -- this is a discrepancy between the declared overall run status and the partial ticket data given, and should be clarified before this phase is considered fully documented.
+- Plan input lists sprints and backlog items separately with no explicit per-item sprint assignment; the mapping above is inferred from sprint goal wording, not stated directly in the input.
+- Development run output reports no delivered ticket for US-001, US-003 (or its tasks US-003-T1/T2/T3), or US-011 (or its tasks US-011-T1/T2/T3), even though overall run status is 'completed' -- actual delivery status of this sprint's scope is unconfirmed.
+- Plan input does not explicitly assign items to sprints; mapping above is inferred from goal wording.
+- All items in this sprint do have matching delivered tickets in the dev run output, which is consistent with this sprint's scope.
+- Development run output reports no delivered ticket for US-008 (or its tasks US-008-T1/T2/T3) or US-010, even though overall run status is 'completed' -- actual delivery status of this sprint's scope (the IT Intermediary Rules 2021 compliance work) is unconfirmed and should be verified given its regulatory relevance.
+- Conflict: overall run status says 'completed' but roughly half the planned story points (including all of Sprint 1's and Sprint 3's inferred scope) have no corresponding delivered ticket -- needs reconciliation with the dev team or run log before this phase can be marked complete.
+- No evidence in the input as to whether US-001, US-003, US-008, US-010, US-011 are still in progress, blocked, or simply omitted from this report.
+- Commit 68a2583c... is also cited for US-004 and US-007, suggesting these three stories may have been delivered together in one change; the input does not confirm whether they were implemented as a single combined commit or separately.
+- Same commit hash as US-002 and US-007; unclear from input whether this reflects one bundled change or three independently-tracked but identically-hashed deliveries.
+- Same commit hash as US-006; likely delivered together, not confirmed explicitly by input.
+- Same commit hash as US-005; likely delivered together, not confirmed explicitly by input.
+- Same commit hash as US-002 and US-004; unclear from input whether this reflects one bundled change or three independently-tracked but identically-hashed deliveries.
 <!-- sdlc:auto:end open-gaps -->
