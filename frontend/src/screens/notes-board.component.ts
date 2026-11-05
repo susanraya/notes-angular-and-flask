@@ -187,6 +187,13 @@ const template = `
     </p>
   </div>
 
+  @if (actionError()) {
+    <p class="mt-2 flex items-center gap-2 text-[13px] font-bold" role="alert" [style.color]="brand.accentColor">
+      <ui-icon name="AlertCircle" class="h-4 w-4" aria-hidden="true"></ui-icon>
+      <span>{{ actionError() }}</span>
+    </p>
+  }
+
   <!-- ROW 8 + ROW 9 -->
   @if (editing()) {
     <form data-wf="b-7-0" class="nb-panel mt-6 p-4" (ngSubmit)="saveEdit()" [style.border]="'2px solid ' + brand.primaryColor" [style.border-radius]="brand.radius">
@@ -318,6 +325,7 @@ export default class Screen extends ScreenBase {
 
   confirmId = signal(null);
   reportAck = signal("");
+  actionError = signal("");
 
   selected = computed(() => this.notes().find((n) => n.id === this.selectedId()) || null);
   editing = computed(() => this.notes().find((n) => n.id === this.editingId()) || null);
@@ -392,7 +400,7 @@ export default class Screen extends ScreenBase {
     this.editError.set(false);
   }
 
-  saveEdit() {
+  async saveEdit() {
     const body = this.editBody().trim();
     if (!body) {
       this.editError.set(true);
@@ -400,14 +408,24 @@ export default class Screen extends ScreenBase {
     }
     const id = this.editingId();
     const title = this.editTitle().trim();
-    this.notes.set(
-      this.notes().map((n) =>
-        n.id === id ? { ...n, title: title, body: body, updated_at: this.stamp } : n,
-      ),
-    );
-    this.editError.set(false);
-    this.editingId.set(null);
-    this.postedTitle.set("");
+    this.actionError.set("");
+    try {
+      const updated = await apiFetch(
+        `/api/notes/${id}`,
+        { method: "PUT", body: JSON.stringify({ title: title, body: body }) },
+        { auth: false },
+      );
+      this.notes.set(this.notes().map((n) => (n.id === id ? updated : n)));
+      this.editError.set(false);
+      this.editingId.set(null);
+      this.postedTitle.set("");
+    } catch (e) {
+      if (e && e.status === 400) {
+        this.editError.set(true);
+      } else {
+        this.actionError.set("Could not save your changes. Try again.");
+      }
+    }
   }
 
   cancelEdit() {
@@ -424,25 +442,34 @@ export default class Screen extends ScreenBase {
     this.confirmId.set(null);
   }
 
-  confirmDelete() {
+  async confirmDelete() {
     const id = this.confirmId();
-    const left = this.notes().filter((n) => n.id !== id);
-    this.notes.set(left);
-    if (this.editingId() === id) this.cancelEdit();
-    this.selectedId.set(left.length ? left[0].id : null);
-    this.confirmId.set(null);
-    this.postedTitle.set("");
+    this.actionError.set("");
+    try {
+      await apiFetch(`/api/notes/${id}`, { method: "DELETE" }, { auth: false });
+      const left = this.notes().filter((n) => n.id !== id);
+      this.notes.set(left);
+      if (this.editingId() === id) this.cancelEdit();
+      this.selectedId.set(left.length ? left[0].id : null);
+      this.confirmId.set(null);
+      this.postedTitle.set("");
+    } catch {
+      this.confirmId.set(null);
+      this.actionError.set("Could not delete this note. Try again.");
+    }
   }
 
-  reportNote() {
+  async reportNote() {
     const note = this.selected();
     if (!note) return;
-    this.notes.set(
-      this.notes().map((n) =>
-        n.id === note.id ? { ...n, reported: true, report_count: n.report_count + 1 } : n,
-      ),
-    );
-    this.reportAck.set(note.title || "(No title)");
+    this.actionError.set("");
+    try {
+      const updated = await apiFetch(`/api/notes/${note.id}/report`, { method: "POST" }, { auth: false });
+      this.notes.set(this.notes().map((n) => (n.id === note.id ? updated : n)));
+      this.reportAck.set(updated.title || "(No title)");
+    } catch {
+      this.actionError.set("Could not report this note. Try again.");
+    }
   }
 
   closeReport() {
