@@ -37,7 +37,42 @@ describe("NotesBoardScreen", () => {
     expect(fixture.nativeElement.textContent).toContain("Hello");
   });
 
-  it("[AC-003] shows the empty state when the board has no notes", async () => {
+  it("[AC-008] displays every note's title and plain-text body, with a placeholder when a title is absent", async () => {
+    vi.spyOn(api, "apiFetch").mockResolvedValue([
+      {
+        id: "n-1",
+        title: "Groceries",
+        body: "Buy milk and eggs",
+        reported: false,
+        report_count: 0,
+        created_at: "now",
+        updated_at: null,
+      },
+      {
+        id: "n-2",
+        title: "",
+        body: "An untitled reminder",
+        reported: false,
+        report_count: 0,
+        created_at: "now",
+        updated_at: null,
+      },
+    ]);
+    TestBed.configureTestingModule({ imports: [Screen], providers: [provideRouter([])] });
+    const fixture = TestBed.createComponent(Screen);
+    fixture.detectChanges();
+    await settle(fixture);
+
+    const text = fixture.nativeElement.textContent;
+    expect(text).toContain("Groceries");
+    expect(text).toContain("Buy milk and eggs");
+    expect(text).toContain("An untitled reminder");
+    expect(text).toContain("(No title)");
+    expect(text).toContain("Notes on the board (2)");
+    expect(fixture.nativeElement.querySelectorAll("ul li").length).toBe(2);
+  });
+
+  it("[AC-009] shows the empty state, and renders no note items at all, when the board has no notes", async () => {
     vi.spyOn(api, "apiFetch").mockResolvedValue([]);
     TestBed.configureTestingModule({ imports: [Screen], providers: [provideRouter([])] });
     const fixture = TestBed.createComponent(Screen);
@@ -45,6 +80,7 @@ describe("NotesBoardScreen", () => {
     await settle(fixture);
 
     expect(fixture.nativeElement.textContent).toContain("No notes yet");
+    expect(fixture.nativeElement.querySelectorAll("ul li").length).toBe(0);
   });
 
   it("[AC-003] shows an error state with retry when the board fails to load", async () => {
@@ -210,7 +246,11 @@ describe("NotesBoardScreen", () => {
 
   it("[AC-012] no undo, revision list, or previous-version UI appears after a save", async () => {
     const fixture = await loadedScreen([note]);
-    vi.spyOn(api, "apiFetch").mockResolvedValueOnce({ ...note, title: "Updated", body: "New body" });
+    vi.spyOn(api, "apiFetch").mockResolvedValueOnce({
+      ...note,
+      title: "Updated",
+      body: "New body",
+    });
 
     const instance = fixture.componentInstance as InstanceType<typeof Screen>;
     instance.startEdit();
@@ -268,7 +308,11 @@ describe("NotesBoardScreen", () => {
     await instance.reportNote();
     await settle(fixture);
 
-    expect(reportSpy).toHaveBeenCalledWith("/api/notes/n-1/report", { method: "POST" }, { auth: false });
+    expect(reportSpy).toHaveBeenCalledWith(
+      "/api/notes/n-1/report",
+      { method: "POST" },
+      { auth: false },
+    );
     expect(fixture.nativeElement.textContent).toContain("Reported 1 time");
   });
 
