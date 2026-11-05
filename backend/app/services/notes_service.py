@@ -16,6 +16,9 @@ def _serialize(note: Note) -> dict[str, object]:
     }
 
 
+TITLE_MAX_LENGTH = 200
+
+
 def _extract_title_body(payload: object) -> tuple[str | None, str, str | None]:
     """Pull `title` and `body` out of a request body. Returns (title, body, error).
 
@@ -32,7 +35,14 @@ def _extract_title_body(payload: object) -> tuple[str | None, str, str | None]:
     raw_title = payload.get("title")
     title: str | None = None
     if isinstance(raw_title, str) and raw_title.strip():
-        title = raw_title
+        # Stripped, not the raw value: otherwise a title that is only whitespace-padded
+        # would pass the truthiness check above but still be stored with the padding.
+        title = raw_title.strip()
+        # The column is varchar(200) (see the data model); reject here with a clean 400
+        # rather than let Postgres raise a DataError that would otherwise surface as an
+        # unhandled 500.
+        if len(title) > TITLE_MAX_LENGTH:
+            return None, "", f"title must be {TITLE_MAX_LENGTH} characters or fewer"
 
     return title, raw_body, None
 

@@ -256,7 +256,7 @@ const template = `
 
   <!-- ROW 11 -->
   @if (confirmId()) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" (keydown.escape)="cancelDelete()">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" (document:keydown.escape)="cancelDelete()">
       <div data-wf="b-10-0" role="dialog" aria-modal="true" aria-labelledby="del-title" tabindex="-1"
         class="nb-panel w-full max-w-md bg-white p-5 shadow-lg" [style.border]="'2px solid ' + brand.primaryColor" [style.border-radius]="brand.radius">
         <h2 id="del-title" class="text-base font-bold tracking-tight" [style.font-family]="brand.fontHeading">Delete this note permanently? This cannot be undone.</h2>
@@ -274,7 +274,7 @@ const template = `
   }
 
   @if (reportAck()) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" (keydown.escape)="closeReport()">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" (document:keydown.escape)="closeReport()">
       <div data-wf="b-10-1" role="dialog" aria-modal="true" aria-labelledby="rep-title" tabindex="-1"
         class="nb-panel w-full max-w-md bg-white p-5 shadow-lg" [style.border]="'2px solid ' + brand.primaryColor" [style.border-radius]="brand.radius">
         <h2 id="rep-title" class="flex items-center gap-2 text-base font-bold tracking-tight" [style.font-family]="brand.fontHeading">
@@ -302,7 +302,15 @@ const template = `
   template,
 })
 export default class Screen extends ScreenBase {
-  loadedAt = "6 Nov 2026, 14:20";
+  // The real clock at the moment this screen was opened, not a fixed placeholder: a
+  // hardcoded date would keep claiming the same load time on every visit forever.
+  loadedAt = new Date().toLocaleString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   hair = "color-mix(in srgb, #111111 16%, transparent)";
   tint = "color-mix(in srgb, #111111 6%, transparent)";
   skeletons = ["s1", "s2", "s3"];

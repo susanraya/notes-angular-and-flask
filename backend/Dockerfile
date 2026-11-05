@@ -20,4 +20,8 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"
 
-CMD ["gunicorn", "app:create_app()", "--bind", "0.0.0.0:8000"]
+# Gunicorn logs nothing by default: `--access-logfile -` and `--error-logfile -` send
+# access/ICT logs to stdout, where the platform's log collection picks them up (CERT-In
+# directions require incident reports within 6 hours and ICT logs kept for 180 days,
+# which depends on these logs existing in the first place).
+CMD ["gunicorn", "app:create_app()", "--bind", "0.0.0.0:8000", "--access-logfile", "-", "--error-logfile", "-"]

@@ -15,6 +15,7 @@ def get_api_grievance_contact() -> Response:
     """Return platform grievance/contact information for IT (Intermediary) Rules 2021 compliance.
 
     Public, no auth, no request body. Response shape:
-    {officer_name, email, phone, address, acknowledgement_window, resolution_window}.
+    {grievance_officer, email, phone, address, acknowledgement_window,
+    resolution_window, response_windows: {acknowledgement, resolution}}.
     """
     return jsonify(get_grievance_contact())

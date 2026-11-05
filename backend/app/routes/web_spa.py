@@ -52,7 +52,8 @@ def delete_api_notes_by_id(id: str) -> tuple[Response, int]:
     deleted = delete_note(id)
     if not deleted:
         return jsonify({"message": "note not found"}), 404
-    return jsonify({}), 204
+    # A 204 response must carry no body (RFC 9110 15.3.5); jsonify("{}") would add one.
+    return "", 204
 
 
 @bp.route("/api/notes/<id>/report", methods=["POST"])
