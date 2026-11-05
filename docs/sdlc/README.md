@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v7
+**Documentation version:** v8
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -16,7 +16,7 @@ a simple notes app without login page
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 13 entries |
 | [Development](development/README.md) | 8 entries |
-| [Testing](testing/README.md) | 0 entries |
+| [Testing](testing/README.md) | 2 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
 | [Data model](architecture/data-model.md) | generated |
@@ -31,7 +31,7 @@ a simple notes app without login page
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 7 versions |
+| [Changelog](CHANGELOG.md) | 8 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
@@ -72,4 +72,13 @@ a simple notes app without login page
 - US-008 and US-010 both cite the exact same commit hash; it is unclear whether this reflects a single combined commit covering both tickets or a data duplication/reporting error -- flagging rather than assuming either explanation.
 - No per-task (T1/T2/T3) delivery confirmation was provided -- only the parent story US-008 is marked delivered.
 - Shares the identical commit hash with US-008's delivery record -- see DEV-RUN-STATUS gap for discrepancy note.
+
+### Testing
+
+- No ticket reference for this check run.
+- The nature/content of the '4 checks' is not specified in the input.
+- No link provided between these checks and specific requirement IDs (US-001..US-011).
+- AC-017 and AC-018 are not present in the known requirement key list (US-001..US-011); cannot trace these acceptance criteria back to a specific US-id without additional mapping input -- flagging as a possible discrepancy for confirmation.
+- No broader test-suite run/result (pass/fail counts) reported for this ticket beyond 'succeeded' -- unclear if these new/extended tests were actually executed and passing, or only authored.
+- Backend test coverage for the POST /api/notes/{id}/report contract (beyond the e2e check) is not separately confirmed.
 <!-- sdlc:auto:end open-gaps -->
