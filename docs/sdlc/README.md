@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v5
+**Documentation version:** v6
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -31,7 +31,7 @@ a simple notes app without login page
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 5 versions |
+| [Changelog](CHANGELOG.md) | 6 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
