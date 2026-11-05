@@ -19,7 +19,10 @@ test("[AC-008] visitor opens the board and reads every note's title and plain-te
   await page.goto("/");
 
   // Post one note with a title and one with none, through the UI a visitor would use.
-  await page.getByLabel(/title \(optional\)/i).first().fill(titledTitle);
+  await page
+    .getByLabel(/title \(optional\)/i)
+    .first()
+    .fill(titledTitle);
   await page.getByLabel(/note text \(required, plain text only\)/i).fill(titledBody);
   await page.getByRole("button", { name: /post note/i }).click();
   await expect(page.getByText(titledBody)).toBeVisible();
