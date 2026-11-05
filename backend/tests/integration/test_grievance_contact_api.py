@@ -48,7 +48,9 @@ def test_ac019_get_grievance_contact_returns_200_with_required_fields_populated(
     assert isinstance(data, dict)
 
     officer_key, officer_value = _first_present(data, OFFICER_KEYS)
-    assert officer_key is not None, f"no officer-name field found among {OFFICER_KEYS}; got keys {list(data)}"
+    assert officer_key is not None, (
+        f"no officer-name field found among {OFFICER_KEYS}; got keys {list(data)}"
+    )
     assert isinstance(officer_value, str) and officer_value.strip()
 
     email_key, email_value = _first_present(data, EMAIL_KEYS)
@@ -60,11 +62,15 @@ def test_ac019_get_grievance_contact_returns_200_with_required_fields_populated(
     assert isinstance(phone_value, str) and phone_value.strip()
 
     address_key, address_value = _first_present(data, ADDRESS_KEYS)
-    assert address_key is not None, f"no address field found among {ADDRESS_KEYS}; got keys {list(data)}"
+    assert address_key is not None, (
+        f"no address field found among {ADDRESS_KEYS}; got keys {list(data)}"
+    )
     assert isinstance(address_value, str) and address_value.strip()
 
     window_key, window_value = _first_present(data, RESPONSE_WINDOW_KEYS)
-    assert window_key is not None, f"no response-window field found among {RESPONSE_WINDOW_KEYS}; got keys {list(data)}"
+    assert window_key is not None, (
+        f"no response-window field found among {RESPONSE_WINDOW_KEYS}; got keys {list(data)}"
+    )
     assert window_value not in (None, "", [])
 
 
