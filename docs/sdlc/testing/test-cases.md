@@ -3,9 +3,9 @@
 > Maintained by QuorQ AI SDLC. Text between `sdlc:auto` markers is regenerated; anything outside them is yours and is kept.
 
 <!-- sdlc:auto:start summary -->
-58 tests · Passed 49 · Failed 0 · Skipped 0 · Not run 9
+63 tests · Passed 50 · Failed 0 · Skipped 0 · Not run 13
 
-Acceptance criteria covered: 16/22 · passing: 7/22
+Acceptance criteria covered: 19/22 · passing: 7/22
 <!-- sdlc:auto:end summary -->
 
 <!-- sdlc:auto:start tests -->
@@ -27,9 +27,10 @@ Acceptance criteria covered: 16/22 · passing: 7/22
 | AC-011 | NotesBoardScreen > [AC-011] clearing the body blocks the save client-side and shows the required message | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
 | AC-012 | NotesBoardScreen > [AC-012] no undo, revision list, or previous-version UI appears after a save | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
 | AC-013, AC-014 | NotesBoardScreen > [AC-013][AC-014] confirming delete calls DELETE /api/notes/{id}; cancel sends no request | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
+| AC-017 | NotesBoardScreen > [AC-017] closing the acknowledgement dismisses it without sending another request | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
+| AC-017 | NotesBoardScreen > [AC-017] selecting report calls POST /api/notes/{id}/report, records the report, and shows the visitor an acknowledgement | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
 | — | NotesBoardScreen > [AC] a failing delete leaves an error visible | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
 | — | NotesBoardScreen > [NFR-001] mutation calls carry no auth header, email, or personal field | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
-| — | NotesBoardScreen > calls POST /api/notes/{id}/report and reflects the returned reported flag and count | Unit | Passed | `frontend/src/screens/notes-board.component.spec.ts` |
 | AC-002 | test_ac002_get_returns_empty_array_when_none_exist | Integration | Passed | `backend/tests/integration/test_notes_api.py` |
 | AC-002 | test_ac002_get_returns_notes_newest_first | Integration | Passed | `backend/tests/integration/test_notes_api.py` |
 | AC-003, AC-004 | test_ac003_and_ac004_post_creates_note_and_is_returned_by_get | Integration | Passed | `backend/tests/integration/test_notes_api.py` |
@@ -82,6 +83,17 @@ Acceptance criteria covered: 16/22 · passing: 7/22
 | — | test_nfr001_no_auth_header_required_and_response_carries_no_caller_personal_data | Integration | Passed | `backend/tests/integration/test_grievance_contact_api.py` |
 | AC-019 | [AC-019] a visible shell link reaches the grievance-contact screen without opening a note, and it shows contact details | E2E | Not run yet | `frontend/e2e/grievance-contact.spec.ts` |
 | — | [NFR-001] the grievance-contact path requests no sign-in, email or other personal detail from the visitor | E2E | Not run yet | `frontend/e2e/grievance-contact.spec.ts` |
+
+## Sprint 3
+
+### US-008: Report an objectionable note
+
+| Criteria | Test | Level | Result | File |
+|---|---|---|---|---|
+| AC-017 | [AC-017] a visitor selects report on a note, sees an acknowledgement, and the report is recorded on the board | E2E | Not run yet | `frontend/e2e/notes-report.spec.ts` |
+| AC-018 | [AC-018] reporting a note needs no login step and no personal information, in the UI or the API contract | E2E | Not run yet | `frontend/e2e/notes-report.spec.ts` |
+| AC-020 | [AC-020] removing a reported note via delete, once confirmed, is gone on reload and in a second, unrelated browser context | E2E | Not run yet | `frontend/e2e/notes-report.spec.ts` |
+| — | [NFR-003] the report acknowledgement offers an escalation path to the grievance/contact information, and that page is reachable | E2E | Not run yet | `frontend/e2e/notes-report.spec.ts` |
 
 ## Project setup
 

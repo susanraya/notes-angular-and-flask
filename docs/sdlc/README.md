@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v6
+**Documentation version:** v7
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ a simple notes app without login page
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 13 entries |
-| [Development](development/README.md) | 10 entries |
+| [Development](development/README.md) | 8 entries |
 | [Testing](testing/README.md) | 0 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
@@ -26,12 +26,12 @@ a simple notes app without login page
 | [Developer guide](development/developer-guide.md) | generated |
 | [API reference](development/api-reference.md) | 7 routes |
 | [Test report](testing/test-report.md) | not run yet |
-| [Tests](testing/test-cases.md) | 58 tests |
+| [Tests](testing/test-cases.md) | 63 tests |
 | [Deployment guide](deployment/deployment-guide.md) | not deployed yet |
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 6 versions |
+| [Changelog](CHANGELOG.md) | 7 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
@@ -66,16 +66,10 @@ a simple notes app without login page
 
 ### Development
 
-- Plan input lists sprints and backlog items separately with no explicit per-item sprint assignment; the mapping above is inferred from sprint goal wording, not stated directly in the input.
-- Development run output reports no delivered ticket for US-001, US-003 (or its tasks US-003-T1/T2/T3), or US-011 (or its tasks US-011-T1/T2/T3), even though overall run status is 'completed' -- actual delivery status of this sprint's scope is unconfirmed.
-- Plan input does not explicitly assign items to sprints; mapping above is inferred from goal wording.
-- All items in this sprint do have matching delivered tickets in the dev run output, which is consistent with this sprint's scope.
-- Development run output reports no delivered ticket for US-008 (or its tasks US-008-T1/T2/T3) or US-010, even though overall run status is 'completed' -- actual delivery status of this sprint's scope (the IT Intermediary Rules 2021 compliance work) is unconfirmed and should be verified given its regulatory relevance.
-- Conflict: overall run status says 'completed' but roughly half the planned story points (including all of Sprint 1's and Sprint 3's inferred scope) have no corresponding delivered ticket -- needs reconciliation with the dev team or run log before this phase can be marked complete.
-- No evidence in the input as to whether US-001, US-003, US-008, US-010, US-011 are still in progress, blocked, or simply omitted from this report.
-- Commit 68a2583c... is also cited for US-004 and US-007, suggesting these three stories may have been delivered together in one change; the input does not confirm whether they were implemented as a single combined commit or separately.
-- Same commit hash as US-002 and US-007; unclear from input whether this reflects one bundled change or three independently-tracked but identically-hashed deliveries.
-- Same commit hash as US-006; likely delivered together, not confirmed explicitly by input.
-- Same commit hash as US-005; likely delivered together, not confirmed explicitly by input.
-- Same commit hash as US-002 and US-004; unclear from input whether this reflects one bundled change or three independently-tracked but identically-hashed deliveries.
+- Input does not provide an explicit field mapping each backlog item to a sprint; sprint membership below is inferred from each sprint's goal text, not an explicit assignment table.
+- Compliance framing (IT Intermediary Rules 2021) is stated only at the sprint-goal level; no separate compliance sign-off or legal review record was provided in this input.
+- Run status says 'completed' but no ticket-level delivery evidence was provided for US-001, US-002, US-003 (+ T1/T2/T3), US-004, US-005, US-006, US-007, US-009, or US-011 (+ T1/T2/T3) -- their implementation status cannot be confirmed from this input.
+- US-008 and US-010 both cite the exact same commit hash; it is unclear whether this reflects a single combined commit covering both tickets or a data duplication/reporting error -- flagging rather than assuming either explanation.
+- No per-task (T1/T2/T3) delivery confirmation was provided -- only the parent story US-008 is marked delivered.
+- Shares the identical commit hash with US-008's delivery record -- see DEV-RUN-STATUS gap for discrepancy note.
 <!-- sdlc:auto:end open-gaps -->
