@@ -21,3 +21,7 @@ def test_every_generated_route_is_registered() -> None:
     """Every endpoint the API spec declares is wired to a view that imports."""
     rules = {rule.rule for rule in client.application.url_map.iter_rules()}
     assert "/health" in rules
+    assert "/api/notes" in rules
+    assert "/api/notes/<id>" in rules
+    assert "/api/notes/<id>/report" in rules
+    assert "/api/grievance-contact" in rules

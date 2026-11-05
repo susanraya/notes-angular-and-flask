@@ -13,6 +13,8 @@ from flask_cors import CORS
 
 from app import models  # noqa: F401 -- imported so the tables register before create_all
 from app.database import Base, engine
+from app.routes.api import bp as api_bp
+from app.routes.web_spa import bp as web_spa_bp
 
 
 def create_app() -> Flask:
@@ -25,10 +27,14 @@ def create_app() -> Flask:
     allowed = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
     CORS(app, origins=allowed or dev_origins, supports_credentials=True)
 
+    # Every endpoint the approved API spec declares lives on one of these blueprints.
+    # Without this, the generated views exist but Flask never routes to them.
+    app.register_blueprint(api_bp)
+    app.register_blueprint(web_spa_bp)
+
     # The scaffold ships no migrations, so the tables are created from the models on
     # startup. Replace this with Alembic before anything holds data worth keeping.
     Base.metadata.create_all(bind=engine)
-
 
     @app.get("/health")
     def health() -> dict[str, object]:
