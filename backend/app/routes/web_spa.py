@@ -8,23 +8,28 @@ Every view is a stub returning a placeholder. The shape comes from the approved
 API spec; the behaviour does not exist yet.
 """
 
-from flask import Blueprint
+from flask import Blueprint, Response, jsonify, request
 
+from app.services.notes_service import create_note, list_notes
 from app.stubs import not_implemented
 
 bp = Blueprint("web_spa", __name__)
 
 
 @bp.route("/api/notes", methods=["GET"])
-def get_api_notes() -> dict[str, str]:
+def get_api_notes() -> Response:
     """List all notes on the shared board; empty array when none exist."""
-    return not_implemented("GET /api/notes")
+    return jsonify(list_notes())
 
 
 @bp.route("/api/notes", methods=["POST"])
-def post_api_notes() -> dict[str, str]:
+def post_api_notes() -> tuple[Response, int]:
     """Create a note; body required, title optional; stores plain text only."""
-    return not_implemented("POST /api/notes")
+    payload = request.get_json(silent=True)
+    note, error = create_note(payload)
+    if error is not None:
+        return jsonify({"message": error}), 400
+    return jsonify(note), 201
 
 
 @bp.route("/api/notes/<id>", methods=["PUT"])

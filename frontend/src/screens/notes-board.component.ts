@@ -1,10 +1,11 @@
 // @ts-nocheck -- generated from the approved design under its plain-JavaScript contract; not hand-written TypeScript.
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { Component, signal, computed } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 import { ScreenBase } from "@/lib/screen-base";
 import { UI_KIT } from "@/lib/ui";
+import { apiFetch } from "@/lib/api";
 const template = `
 <style>
   .nb-in { animation: nb-in 180ms ease-out both; }
@@ -294,70 +295,92 @@ const template = `
   template,
 })
 export default class Screen extends ScreenBase {
-  loadedAt = '6 Nov 2026, 14:20';
-  stamp = '6 Nov 2026, 14:22';
-  hair = 'color-mix(in srgb, #111111 16%, transparent)';
-  tint = 'color-mix(in srgb, #111111 6%, transparent)';
-  skeletons = ['s1', 's2', 's3'];
-  seq = 105;
+  loadedAt = "6 Nov 2026, 14:20";
+  stamp = "6 Nov 2026, 14:22";
+  hair = "color-mix(in srgb, #111111 16%, transparent)";
+  tint = "color-mix(in srgb, #111111 6%, transparent)";
+  skeletons = ["s1", "s2", "s3"];
 
-  boardState = signal('ready');
+  boardState = signal("loading");
 
-  notes = signal([
-    { id: 'n-104', title: 'Office Wi-Fi', body: 'Guest password is guest2026. Ask reception for the meeting-room network.', reported: true, report_count: 2, created_at: '4 Nov 2026, 11:08', updated_at: '6 Nov 2026, 14:12' },
-    { id: 'n-103', title: 'Shopping list', body: 'milk, bread, coffee, washing-up liquid', reported: false, report_count: 0, created_at: '5 Nov 2026, 08:55', updated_at: '6 Nov 2026, 09:40' },
-    { id: 'n-102', title: '', body: 'Standup moved to 10:30 from Monday.', reported: false, report_count: 0, created_at: '5 Nov 2026, 17:05', updated_at: null }
-  ]);
+  notes = signal([]);
 
-  selectedId = signal('n-104');
-  newTitle = signal('');
-  newBody = signal('');
+  selectedId = signal(null);
+  newTitle = signal("");
+  newBody = signal("");
   newError = signal(false);
-  postedTitle = signal('');
+  postedTitle = signal("");
 
   editingId = signal(null);
-  editTitle = signal('');
-  editBody = signal('');
+  editTitle = signal("");
+  editBody = signal("");
   editError = signal(false);
 
   confirmId = signal(null);
-  reportAck = signal('');
+  reportAck = signal("");
 
   selected = computed(() => this.notes().find((n) => n.id === this.selectedId()) || null);
   editing = computed(() => this.notes().find((n) => n.id === this.editingId()) || null);
   confirmTitle = computed(() => {
     const note = this.notes().find((n) => n.id === this.confirmId());
-    return note ? (note.title || '(No title)') : '';
+    return note ? note.title || "(No title)" : "";
   });
 
   stampLabel(note) {
-    return note.updated_at ? 'Updated ' + note.updated_at : 'Created ' + note.created_at;
+    return note.updated_at ? "Updated " + note.updated_at : "Created " + note.created_at;
+  }
+
+  ngOnInit() {
+    this.loadBoard();
+  }
+
+  async loadBoard() {
+    this.boardState.set("loading");
+    try {
+      const data = await apiFetch("/api/notes", undefined, { auth: false });
+      this.notes.set(data || []);
+      this.selectedId.set(data && data.length ? data[0].id : null);
+      this.boardState.set("ready");
+    } catch {
+      this.boardState.set("error");
+    }
   }
 
   retryBoard() {
-    this.boardState.set('ready');
+    this.loadBoard();
   }
 
   select(id) {
     this.selectedId.set(id);
   }
 
-  postNote() {
+  async postNote() {
     const body = this.newBody().trim();
     if (!body) {
       this.newError.set(true);
-      this.postedTitle.set('');
+      this.postedTitle.set("");
       return;
     }
     const title = this.newTitle().trim();
-    const id = 'n-' + this.seq;
-    this.seq = this.seq + 1;
-    this.notes.set([{ id: id, title: title, body: body, reported: false, report_count: 0, created_at: this.stamp, updated_at: null }, ...this.notes()]);
-    this.newTitle.set('');
-    this.newBody.set('');
-    this.newError.set(false);
-    this.postedTitle.set(title || '(No title)');
-    this.selectedId.set(id);
+    const payload = title ? { title: title, body: body } : { body: body };
+    try {
+      const created = await apiFetch(
+        "/api/notes",
+        { method: "POST", body: JSON.stringify(payload) },
+        { auth: false },
+      );
+      this.notes.set([created, ...this.notes()]);
+      this.newTitle.set("");
+      this.newBody.set("");
+      this.newError.set(false);
+      this.postedTitle.set(created.title || "(No title)");
+      this.selectedId.set(created.id);
+    } catch (e) {
+      if (e && e.status === 400) {
+        this.newError.set(true);
+        this.postedTitle.set("");
+      }
+    }
   }
 
   startEdit() {
@@ -377,10 +400,14 @@ export default class Screen extends ScreenBase {
     }
     const id = this.editingId();
     const title = this.editTitle().trim();
-    this.notes.set(this.notes().map((n) => n.id === id ? { ...n, title: title, body: body, updated_at: this.stamp } : n));
+    this.notes.set(
+      this.notes().map((n) =>
+        n.id === id ? { ...n, title: title, body: body, updated_at: this.stamp } : n,
+      ),
+    );
     this.editError.set(false);
     this.editingId.set(null);
-    this.postedTitle.set('');
+    this.postedTitle.set("");
   }
 
   cancelEdit() {
@@ -404,22 +431,26 @@ export default class Screen extends ScreenBase {
     if (this.editingId() === id) this.cancelEdit();
     this.selectedId.set(left.length ? left[0].id : null);
     this.confirmId.set(null);
-    this.postedTitle.set('');
+    this.postedTitle.set("");
   }
 
   reportNote() {
     const note = this.selected();
     if (!note) return;
-    this.notes.set(this.notes().map((n) => n.id === note.id ? { ...n, reported: true, report_count: n.report_count + 1 } : n));
-    this.reportAck.set(note.title || '(No title)');
+    this.notes.set(
+      this.notes().map((n) =>
+        n.id === note.id ? { ...n, reported: true, report_count: n.report_count + 1 } : n,
+      ),
+    );
+    this.reportAck.set(note.title || "(No title)");
   }
 
   closeReport() {
-    this.reportAck.set('');
+    this.reportAck.set("");
   }
 
   escalate() {
-    this.reportAck.set('');
-    this.navigate('grievance-contact');
+    this.reportAck.set("");
+    this.navigate("grievance-contact");
   }
 }
