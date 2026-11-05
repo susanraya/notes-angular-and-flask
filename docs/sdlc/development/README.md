@@ -5,81 +5,44 @@
 <!-- sdlc:auto:start narrative -->
 ### PLAN-V1 · approved · source: plan:v1
 
-Development plan version 1 is approved. It organizes all 11 user stories under 5 epics into 3 sprints, each with a capacity of 20 points.
+Approved plan v1 organizes the build into 3 sprints of 20-point capacity each, covering no-login shared-board access, full CRUD note functionality, refresh-based visibility, note reporting/removal, and India-hosted infrastructure.
 
-Plan status: approved, version 1. Scope covers: EPIC-001 Open Access to the Shared Public Notes Board, EPIC-002 Create/Read/Edit/Delete Notes, EPIC-003 Update Visibility on Refresh, EPIC-004 Report and Remove Objectionable Notes, EPIC-005 India Data Hosting and Compliance Boundaries. Work is sequenced across Sprint 1, Sprint 2, and Sprint 3, each sized at 20 points capacity.
+Sprint 1 goal: stand up India-hosted infra, the no-login Angular shell, and the create-note slice (including notes table schema). Sprint 2 goal: deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info. Sprint 3 goal: add note reporting and reported-content removal to align with the IT Intermediary Rules 2021. Backlog breakdown: EPIC-001 Open Access (US-001 access without login, 3pts, frontend-agent; US-002 single shared board, 2pts, backend-agent); EPIC-002 CRUD Notes (US-003 create note, 8pts, backend-agent, with tasks US-003-T1 schema/migration, US-003-T2 POST /api/notes endpoint, US-003-T3 Angular creation form; US-004 read all notes, 5pts, frontend-agent; US-005 edit any note, 5pts, backend-agent; US-006 delete any note, 3pts, frontend-agent); EPIC-003 Update Visibility (US-007 see changes on refresh, 2pts, frontend-agent); EPIC-004 Report/Remove (US-008 report note, 8pts, backend-agent, with tasks US-008-T1 reported-flag migration, US-008-T2 POST /api/notes/{id}/report, US-008-T3 report UI; US-009 grievance/contact info, 3pts, backend-agent; US-010 remove reported note, 3pts, frontend-agent); EPIC-005 India Hosting (US-011 host data in India, 8pts, devops-agent, with tasks US-011-T1 provision PostgreSQL 16 in ap-south-1, US-011-T2 deploy Flask API to ap-south-1, US-011-T3 configure network/security).
 
-**Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-008, US-009, US-010, US-011
+**Related:** EPIC-001, EPIC-002, EPIC-003, EPIC-004, EPIC-005, US-001, US-002, US-003, US-003-T1, US-003-T2, US-003-T3, US-004, US-005, US-006, US-007, US-008, US-008-T1, US-008-T2, US-008-T3, US-009, US-010, US-011, US-011-T1, US-011-T2, US-011-T3
 
-- ⚠ Input does not provide an explicit field mapping each backlog item to a sprint; sprint membership below is inferred from each sprint's goal text, not an explicit assignment table.
+- ⚠ Plan covers all 11 stories and their sub-tasks, but the development run input only reports ticket-level outcomes for 2 of them (US-008, US-010) -- no execution record exists yet for the other 9 stories or any sub-task.
 
-### SPRINT-1 · approved · source: plan:Sprint 1
+### DEV-US-008 · approved · source: dev:US-008
 
-Sprint 1 goal: stand up India-hosted infrastructure, the no-login Angular shell, and the first full-stack slice for creating notes, capacity 20 points.
+Ticket US-008 (Report an objectionable note) is recorded as delivered in this development run, corresponding to Sprint 3's reporting feature.
 
-Goal: 'Stand up India-hosted infrastructure, the no-login Angular shell, and the first full-stack slice: creating notes (including the notes table schema).' Inferred scope based on goal wording: US-001 (access board without logging in), US-003 (create a note) with its tasks US-003-T1 (notes table schema/migration), US-003-T2 (POST /api/notes endpoint with validation), US-003-T3 (note creation form in Angular UI), and US-011 (host notes data in India) with its tasks US-011-T1 (provision PostgreSQL 16 in AWS ap-south-1), US-011-T2 (deploy Flask API to ap-south-1), US-011-T3 (configure network/security between API and database).
+Development run status: delivered, commit 3dc71c000fc284a972dae9532b02b5bee6110742. Per the plan, this story is scoped by three sub-tasks: US-008-T1 (add reported flag column migration), US-008-T2 (implement POST /api/notes/{id}/report endpoint), and US-008-T3 (add report action and acknowledgement UI). The run input confirms only the parent story ticket as delivered, with a single commit reference.
 
-**Related:** US-001, US-003, US-011
+**Related:** US-008, US-008-T1, US-008-T2, US-008-T3, EPIC-004
 
-### SPRINT-2 · approved · source: plan:Sprint 2
+- ⚠ No individual delivery confirmation for sub-tasks US-008-T1, US-008-T2, or US-008-T3 -- only the parent story ticket is recorded, so it is unclear whether all three were completed or just some.
+- ⚠ No test or code-review evidence provided alongside the 'delivered' status.
 
-Sprint 2 goal: deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info, capacity 20 points.
+### DEV-US-010 · approved · source: dev:US-010
 
-Goal: 'Deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info.' Inferred scope: US-002 (single shared board everyone uses), US-004 (read all notes on the board), US-005 (edit any note), US-006 (delete any note), US-007 (see others' changes on refresh), US-009 (make contact/grievance information available).
+Ticket US-010 (Remove a reported or objectionable note) is recorded as delivered in this development run, corresponding to Sprint 3's removal feature.
 
-**Related:** US-002, US-004, US-005, US-006, US-007, US-009
+Development run status: delivered, commit 3dc71c000fc284a972dae9532b02b5bee6110742 -- the same commit hash referenced for US-008. The plan lists US-010 as a standalone story with no sub-tasks defined, so no further task-level breakdown exists to verify against.
 
-### SPRINT-3 · approved · source: plan:Sprint 3
+**Related:** US-010, EPIC-004
 
-Sprint 3 goal: add note reporting and reported-content removal to align with the IT Intermediary Rules 2021, capacity 20 points.
+- ⚠ US-010 and US-008 share the identical commit reference; the input gives no explanation of whether this is one combined commit delivering both stories or a data duplication -- flagged as a discrepancy to confirm, not assumed to be an error.
+- ⚠ No test or code-review evidence provided alongside the 'delivered' status.
 
-Goal: 'Add note reporting and reported-content removal to align with the IT Intermediary Rules 2021.' Inferred scope: US-008 (report an objectionable note) with tasks US-008-T1 (reported flag column migration), US-008-T2 (POST /api/notes/{id}/report endpoint), US-008-T3 (report action/acknowledgement UI); and US-010 (remove a reported or objectionable note). The plan explicitly frames this sprint's work as a compliance response to India's IT Intermediary Rules 2021.
+### DEV-RUN-GAP · draft · source: dev:run-status
 
-**Related:** US-008, US-010
+The development run is marked 'completed' overall, but ticket-level evidence is only provided for 2 of the 11 planned stories.
 
-- ⚠ Compliance framing (IT Intermediary Rules 2021) is stated only at the sprint-goal level; no separate compliance sign-off or legal review record was provided in this input.
+Run status field states 'completed'. The only ticket records supplied are US-008 and US-010 (both Sprint 3 / EPIC-004 reporting-removal scope, both status=delivered, same commit). No ticket records were supplied for US-001 (access without login), US-002 (single shared board), US-003 (create note, including schema/migration and API endpoint), US-004 (read all notes), US-005 (edit any note), US-006 (delete any note), US-007 (refresh-based visibility), US-009 (grievance/contact info), or US-011 (India data hosting, including PostgreSQL provisioning, Flask deployment, and network/security config), nor for any of their associated sub-tasks.
 
-### BACKLOG-STRUCTURE · approved · source: plan:v1
+**Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-009, US-011
 
-Full backlog breakdown: 5 epics containing 11 stories (33 total points across EPIC-002/003/004/005 stories plus EPIC-001) and their supporting engineering tasks, with assigned roles.
-
-EPIC-001 Open Access to the Shared Public Notes Board: US-001 Access the board without logging in (3 pts, frontend-agent), US-002 See the single shared board everyone uses (2 pts, backend-agent).
-EPIC-002 Create, Read, Edit and Delete Notes (Wiki-style): US-003 Create a note (8 pts, backend-agent) with US-003-T1 notes table schema/migration, US-003-T2 POST /api/notes endpoint with validation, US-003-T3 note creation form in Angular UI (all backend/frontend-agent as noted); US-004 Read all notes on the board (5 pts, frontend-agent); US-005 Edit any note (5 pts, backend-agent); US-006 Delete any note (3 pts, frontend-agent).
-EPIC-003 Update Visibility on Refresh: US-007 See others' changes on refresh (2 pts, frontend-agent).
-EPIC-004 Report and Remove Objectionable Notes: US-008 Report an objectionable note (8 pts, backend-agent) with US-008-T1 reported flag column migration, US-008-T2 POST /api/notes/{id}/report endpoint, US-008-T3 report action/acknowledgement UI; US-009 Make contact/grievance information available (3 pts, backend-agent); US-010 Remove a reported or objectionable note (3 pts, frontend-agent).
-EPIC-005 India Data Hosting and Compliance Boundaries: US-011 Host notes data in India (8 pts, devops-agent) with US-011-T1 provision PostgreSQL 16 in AWS ap-south-1, US-011-T2 deploy Flask API to ap-south-1, US-011-T3 configure network/security between API and database.
-All 5 epics are listed with points=None and role unassigned (epics are not themselves estimated or staffed in this plan).
-
-**Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-008, US-009, US-010, US-011
-
-### DEV-RUN-STATUS · draft · source: dev:run
-
-The development run itself is reported as 'completed', but only 2 of the 11 planned stories (US-008 and US-010) have individual ticket-level delivery records in this input.
-
-Development run status: completed. Only two tickets were reported: US-008 (Report an objectionable note) and US-010 (Remove a reported or objectionable note), both status=delivered, both referencing commit 3dc71c000fc284a972dae9532b02b5bee6110742.
-
-**Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-008, US-009, US-010, US-011
-
-- ⚠ Run status says 'completed' but no ticket-level delivery evidence was provided for US-001, US-002, US-003 (+ T1/T2/T3), US-004, US-005, US-006, US-007, US-009, or US-011 (+ T1/T2/T3) -- their implementation status cannot be confirmed from this input.
-- ⚠ US-008 and US-010 both cite the exact same commit hash; it is unclear whether this reflects a single combined commit covering both tickets or a data duplication/reporting error -- flagging rather than assuming either explanation.
-
-### TICKET-US-008 · approved · source: dev:TICKET-US-008
-
-Ticket US-008 'Report an objectionable note' is recorded as delivered.
-
-Ticket US-008: Report an objectionable note - status=delivered, commit=3dc71c000fc284a972dae9532b02b5bee6110742. Covers reporting flow backed by the planned tasks: reported-flag column migration, POST /api/notes/{id}/report endpoint, and report action/acknowledgement UI (per plan backlog, not independently confirmed per-task in this delivery record).
-
-**Related:** US-008, US-008-T1, US-008-T2, US-008-T3
-
-- ⚠ No per-task (T1/T2/T3) delivery confirmation was provided -- only the parent story US-008 is marked delivered.
-
-### TICKET-US-010 · approved · source: dev:TICKET-US-010
-
-Ticket US-010 'Remove a reported or objectionable note' is recorded as delivered.
-
-Ticket US-010: Remove a reported or objectionable note - status=delivered, commit=3dc71c000fc284a972dae9532b02b5bee6110742. Functionally depends on reporting capability from US-008 per the EPIC-004 grouping.
-
-**Related:** US-010, US-008
-
-- ⚠ Shares the identical commit hash with US-008's delivery record -- see DEV-RUN-STATUS gap for discrepancy note.
+- ⚠ Run status says 'completed' but 9 of 11 planned stories (US-001 through US-007, US-009, US-011) and all associated sub-tasks have no delivery record in this input -- cannot confirm whether they were built, are pending, or simply were not reported.
+- ⚠ No commit, reviewer, or test information was given for any story outside US-008/US-010.
 <!-- sdlc:auto:end narrative -->

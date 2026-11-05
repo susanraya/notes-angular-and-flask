@@ -11,7 +11,7 @@
 | POST | /api/notes | post_api_notes | `backend/app/routes/web_spa.py:28` | Create a note; body required, title optional; stores plain text only. |
 | DELETE | /api/notes/{id} | delete_api_notes_by_id | `backend/app/routes/web_spa.py:50` | Permanently delete any note (also used to remove reported notes). |
 | PUT | /api/notes/{id} | put_api_notes_by_id | `backend/app/routes/web_spa.py:38` | Edit any note wiki-style; body required; no version history kept. |
-| POST | /api/notes/{id}/report | post_api_notes_by_id_report | `backend/app/routes/web_spa.py:59` | Report a note as objectionable; sets reported flag; no personal data required. |
+| POST | /api/notes/{id}/report | post_api_notes_by_id_report | `backend/app/routes/web_spa.py:60` | Report a note as objectionable; sets reported flag; no personal data required. |
 <!-- sdlc:auto:end endpoints -->
 
 <!-- sdlc:auto:start drift -->
@@ -19,5 +19,5 @@ _Code matches the designed API._
 <!-- sdlc:auto:end drift -->
 
 <!-- sdlc:auto:start source -->
-Generated from commit `1788b89`
+Generated from commit `2af9cc9`
 <!-- sdlc:auto:end source -->

@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v8
+**Documentation version:** v9
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ a simple notes app without login page
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 13 entries |
-| [Development](development/README.md) | 8 entries |
+| [Development](development/README.md) | 4 entries |
 | [Testing](testing/README.md) | 2 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
@@ -31,7 +31,7 @@ a simple notes app without login page
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 8 versions |
+| [Changelog](CHANGELOG.md) | 9 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
@@ -66,19 +66,17 @@ a simple notes app without login page
 
 ### Development
 
-- Input does not provide an explicit field mapping each backlog item to a sprint; sprint membership below is inferred from each sprint's goal text, not an explicit assignment table.
-- Compliance framing (IT Intermediary Rules 2021) is stated only at the sprint-goal level; no separate compliance sign-off or legal review record was provided in this input.
-- Run status says 'completed' but no ticket-level delivery evidence was provided for US-001, US-002, US-003 (+ T1/T2/T3), US-004, US-005, US-006, US-007, US-009, or US-011 (+ T1/T2/T3) -- their implementation status cannot be confirmed from this input.
-- US-008 and US-010 both cite the exact same commit hash; it is unclear whether this reflects a single combined commit covering both tickets or a data duplication/reporting error -- flagging rather than assuming either explanation.
-- No per-task (T1/T2/T3) delivery confirmation was provided -- only the parent story US-008 is marked delivered.
-- Shares the identical commit hash with US-008's delivery record -- see DEV-RUN-STATUS gap for discrepancy note.
+- Plan covers all 11 stories and their sub-tasks, but the development run input only reports ticket-level outcomes for 2 of them (US-008, US-010) -- no execution record exists yet for the other 9 stories or any sub-task.
+- No individual delivery confirmation for sub-tasks US-008-T1, US-008-T2, or US-008-T3 -- only the parent story ticket is recorded, so it is unclear whether all three were completed or just some.
+- No test or code-review evidence provided alongside the 'delivered' status.
+- US-010 and US-008 share the identical commit reference; the input gives no explanation of whether this is one combined commit delivering both stories or a data duplication -- flagged as a discrepancy to confirm, not assumed to be an error.
+- Run status says 'completed' but 9 of 11 planned stories (US-001 through US-007, US-009, US-011) and all associated sub-tasks have no delivery record in this input -- cannot confirm whether they were built, are pending, or simply were not reported.
+- No commit, reviewer, or test information was given for any story outside US-008/US-010.
 
 ### Testing
 
-- No ticket reference for this check run.
-- The nature/content of the '4 checks' is not specified in the input.
-- No link provided between these checks and specific requirement IDs (US-001..US-011).
-- AC-017 and AC-018 are not present in the known requirement key list (US-001..US-011); cannot trace these acceptance criteria back to a specific US-id without additional mapping input -- flagging as a possible discrepancy for confirmation.
-- No broader test-suite run/result (pass/fail counts) reported for this ticket beyond 'succeeded' -- unclear if these new/extended tests were actually executed and passing, or only authored.
-- Backend test coverage for the POST /api/notes/{id}/report contract (beyond the e2e check) is not separately confirmed.
+- No ticket or requirement id associated with this run, so it can't be traced to a specific US-00x requirement.
+- Input does not list what the 4 individual checks were (e.g. lint, build, unit, e2e), so coverage scope is unknown.
+- AC-017 and AC-018 are referenced but do not map to any of the known requirement keys (US-001 through US-011) given in this input, so this test work cannot be definitively linked to a specific user story.
+- No test results/output (pass counts, failures) for the newly added notes-report.spec.ts or the extended component spec were included -- only that the write_tests action itself succeeded, not that the tests it wrote currently pass in a run.
 <!-- sdlc:auto:end open-gaps -->
