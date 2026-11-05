@@ -5,7 +5,7 @@
 <!-- sdlc:auto:start overview -->
 a simple notes app without login page
 
-**Documentation version:** v3
+**Documentation version:** v4
 <!-- sdlc:auto:end overview -->
 
 ## Contents
@@ -15,7 +15,7 @@ a simple notes app without login page
 |---|---|
 | [Requirements](requirements/README.md) | v1 approved |
 | [Architecture](architecture/README.md) | 13 entries |
-| [Development](development/README.md) | 20 entries |
+| [Development](development/README.md) | 5 entries |
 | [Testing](testing/README.md) | 0 entries |
 | [Deployment](deployment/README.md) | 0 entries |
 | [Maintenance](maintenance/README.md) | 0 entries |
@@ -24,14 +24,14 @@ a simple notes app without login page
 | [Decisions (ADRs)](architecture/adr/README.md) | 4 decisions |
 | [Sprint plan](development/sprint-plan.md) | 3 sprints |
 | [Developer guide](development/developer-guide.md) | generated |
-| [API reference](development/api-reference.md) | 1 route |
+| [API reference](development/api-reference.md) | 6 routes |
 | [Test report](testing/test-report.md) | not run yet |
-| [Tests](testing/test-cases.md) | 0 tests |
+| [Tests](testing/test-cases.md) | 20 tests |
 | [Deployment guide](deployment/deployment-guide.md) | not deployed yet |
 | [Runbook](deployment/runbook.md) | not deployed yet |
 | [Release notes](deployment/release-notes.md) | 0 releases |
 | [Traceability matrix](traceability-matrix.md) | 11 requirements |
-| [Changelog](CHANGELOG.md) | 3 versions |
+| [Changelog](CHANGELOG.md) | 4 versions |
 <!-- sdlc:auto:end contents -->
 
 ## Open gaps
@@ -66,22 +66,8 @@ a simple notes app without login page
 
 ### Development
 
-- No development execution status (commits, code, PRs, ticket completion) was provided for this phase; only the sprint backlog breakdown is available.
-- No explicit dates for sprint start/end were given.
-- Input does not explicitly list which backlog items are assigned to this sprint; only the goal narrative is given, so item-to-sprint mapping is unconfirmed.
-- The specific provisions of the IT Intermediary Rules 2021 being targeted are not detailed in the input beyond 'reporting and removal' -- full regulatory scope is unconfirmed.
-- No epic-level owner/role assigned.
-- No completion status provided.
-- No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- No implementation or test evidence provided for the schema, API endpoint, or UI form tasks; only task assignments are known.
-- Input does not clarify whether edit permissions are restricted in any way; story title suggests any user can edit any note.
-- Input does not clarify whether delete permissions are restricted in any way.
-- Input confirms refresh-based (not real-time/live) updates per Sprint 2 goal, but no implementation confirmation is given.
-- Scope of IT Intermediary Rules 2021 compliance is stated only at the goal-narrative level; no detailed regulatory requirement mapping was provided to confirm full coverage.
-- No implementation or test evidence provided for the schema, endpoint, or UI tasks; only task assignments are known.
-- Content of the grievance/contact information itself is not specified in the input.
-- Input does not specify who has authority to remove a reported note (e.g. moderator vs. any user).
-- 'Compliance boundaries' in the epic title are not further detailed beyond data hosting location in the input.
-- No implementation or deployment evidence provided for provisioning, deployment, or network/security configuration tasks; only task assignments are known.
-- No deployment phase input exists yet to confirm these infrastructure tasks were actually completed.
+- No individual delivery confirmation for sub-tasks US-003-T1, US-003-T2, US-003-T3 -- only the parent story US-003 is marked delivered.
+- Reason for skipping US-011 is not provided in the input.
+- US-011 underpins the project's India-hosting/compliance boundary goal from Sprint 1's stated plan goal; skipping it conflicts with that stated goal and with the overall dev run status of 'completed' -- flagged as a discrepancy.
+- No ticket-level status provided for US-002, US-004, US-005, US-006, US-007, US-008, US-008-T1, US-008-T2, US-008-T3, US-009, US-010 despite the run being marked 'completed' -- this is a discrepancy between the declared overall run status and the partial ticket data given, and should be clarified before this phase is considered fully documented.
 <!-- sdlc:auto:end open-gaps -->

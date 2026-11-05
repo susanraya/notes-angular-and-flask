@@ -3,212 +3,50 @@
 > Maintained by QuorQ AI SDLC. Text between `sdlc:auto` markers is regenerated; anything outside them is yours and is kept.
 
 <!-- sdlc:auto:start narrative -->
-### DEV-PLAN-001 · approved · source: plan:v1
+### DEV-PLAN-V1 · approved · source: plan:v1
 
-Development plan version 1 is approved. It organizes all 11 requirements into 5 epics and 3 sprints (20 points capacity each) covering no-login board access, notes CRUD, refresh-based visibility, reporting/removal of content, and India data hosting.
+Development plan v1 is approved and organizes the 11 stories into three sprints with capacity 20 each.
 
-Plan status: approved, version 1. Three sprints: Sprint 1 - stand up India-hosted infrastructure, no-login Angular shell, and note creation (including schema); Sprint 2 - read/edit/delete notes, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info; Sprint 3 - note reporting and reported-content removal to align with the IT Intermediary Rules 2021. No sprint-to-backlog-item mapping was explicitly stated beyond goal narratives.
+Sprint 1 (capacity 20): stand up India-hosted infrastructure, the no-login Angular shell, and the first full-stack slice (note creation + notes table schema) -- covers US-001, US-002, US-003 and its tasks US-003-T1/T2/T3. Sprint 2 (capacity 20): deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info -- covers US-004, US-005, US-006, US-007, US-009. Sprint 3 (capacity 20): add note reporting and reported-content removal to align with the IT Intermediary Rules 2021 -- covers US-008 (and tasks US-008-T1/T2/T3) and US-010. Epics: EPIC-001 Open Access, EPIC-002 CRUD Notes, EPIC-003 Update Visibility on Refresh, EPIC-004 Report/Remove Objectionable Notes, EPIC-005 India Data Hosting and Compliance Boundaries (US-011 and tasks US-011-T1/T2/T3).
 
 **Related:** US-001, US-002, US-003, US-004, US-005, US-006, US-007, US-008, US-009, US-010, US-011
 
-- ⚠ No development execution status (commits, code, PRs, ticket completion) was provided for this phase; only the sprint backlog breakdown is available.
-- ⚠ No explicit dates for sprint start/end were given.
+### DEV-US-001 · approved · source: dev:US-001
 
-### SPRINT-1 · draft · source: plan:Sprint 1
+The no-login board access story was delivered in this development run.
 
-Sprint 1 goal: stand up India-hosted infrastructure, the no-login Angular shell, and the first full-stack slice for creating notes.
+Ticket US-001 (Access the board without logging in), planned in Sprint 1 and assigned to frontend-agent with 3 points, is recorded as delivered with commit 4318f42b0dd2c3eeda43063b0a678a2f08f33b83.
 
-Goal: Stand up India-hosted infrastructure, the no-login Angular shell, and the first full-stack slice: creating notes (including the notes table schema). Capacity: 20 points.
+**Related:** US-001
 
-- ⚠ Input does not explicitly list which backlog items are assigned to this sprint; only the goal narrative is given, so item-to-sprint mapping is unconfirmed.
+### DEV-US-003 · approved · source: dev:US-003
 
-### SPRINT-2 · draft · source: plan:Sprint 2
+The note-creation story was delivered in this development run, covering the notes table schema, the create endpoint, and the Angular creation form.
 
-Sprint 2 goal: deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info.
+Ticket US-003 (Create a note), planned in Sprint 1 and assigned to backend-agent with 8 points, is recorded as delivered with commit 4318f42b0dd2c3eeda43063b0a678a2f08f33b83 -- the same commit hash reported for US-001, suggesting both stories landed in a combined commit/slice. Sub-tasks US-003-T1 (notes table schema/migration), US-003-T2 (POST /api/notes endpoint with validation), and US-003-T3 (Angular note creation form) were part of this story's scope per the plan, but the dev run input gives no individual status for the sub-tasks themselves.
 
-Goal: Deliver read/edit/delete note functionality, confirm single shared-board behavior, refresh-based update visibility, and grievance/contact info. Capacity: 20 points.
+**Related:** US-003, US-003-T1, US-003-T2, US-003-T3
 
-- ⚠ Input does not explicitly list which backlog items are assigned to this sprint; only the goal narrative is given, so item-to-sprint mapping is unconfirmed.
+- ⚠ No individual delivery confirmation for sub-tasks US-003-T1, US-003-T2, US-003-T3 -- only the parent story US-003 is marked delivered.
 
-### SPRINT-3 · draft · source: plan:Sprint 3
+### DEV-US-011 · draft · source: dev:US-011
 
-Sprint 3 goal: add note reporting and reported-content removal to align with the IT Intermediary Rules 2021.
+The India data-hosting story was skipped in this development run, with no commit produced.
 
-Goal: Add note reporting and reported-content removal to align with the IT Intermediary Rules 2021. Capacity: 20 points.
+Ticket US-011 (Host notes data in India), part of EPIC-005 (India Data Hosting and Compliance Boundaries), planned in Sprint 1 and assigned to devops-agent with 8 points, is recorded with status=skipped and commit=(none). Its sub-tasks per the plan -- US-011-T1 (provision PostgreSQL 16 in AWS ap-south-1), US-011-T2 (deploy Flask API to ap-south-1), US-011-T3 (configure network/security between API and database) -- have no reported implementation status.
 
-- ⚠ Input does not explicitly list which backlog items are assigned to this sprint; only the goal narrative is given, so item-to-sprint mapping is unconfirmed.
-- ⚠ The specific provisions of the IT Intermediary Rules 2021 being targeted are not detailed in the input beyond 'reporting and removal' -- full regulatory scope is unconfirmed.
+**Related:** US-011, US-011-T1, US-011-T2, US-011-T3
 
-### EPIC-001 · draft · source: plan:EPIC-001
+- ⚠ Reason for skipping US-011 is not provided in the input.
+- ⚠ US-011 underpins the project's India-hosting/compliance boundary goal from Sprint 1's stated plan goal; skipping it conflicts with that stated goal and with the overall dev run status of 'completed' -- flagged as a discrepancy.
 
-Epic covering open, no-login access to a single shared public notes board.
+### DEV-RUN-COVERAGE-GAP · draft · source: dev:run
 
-Epic 'Open Access to the Shared Public Notes Board' groups US-001 (access without login) and US-002 (single shared board for everyone). No points or role assigned at the epic level.
+The development run is marked 'completed' overall, but ticket-level status is only provided for 3 of the 11 planned stories.
 
-**Related:** US-001, US-002
+Plan v1 scheduled US-002 (shared board), US-004 (read all notes), US-005 (edit any note), US-006 (delete any note), US-007 (see changes on refresh), US-008 (report objectionable note, plus tasks US-008-T1/T2/T3), US-009 (grievance/contact info), and US-010 (remove reported note) across Sprints 1-3. The dev run input supplied no ticket entries for any of these, so their delivery state (delivered, skipped, or not started) cannot be confirmed.
 
-- ⚠ No epic-level owner/role assigned.
-- ⚠ No completion status provided.
+**Related:** US-002, US-004, US-005, US-006, US-007, US-008, US-009, US-010
 
-### US-001 · draft · source: plan:US-001
-
-Allows any user to access the notes board without a login step.
-
-Story: Access the board without logging in. Points: 3. Assigned role: frontend-agent. Part of EPIC-001 (Open Access to the Shared Public Notes Board).
-
-**Related:** EPIC-001
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-
-### US-002 · draft · source: plan:US-002
-
-Ensures all users see and interact with the same single shared board rather than separate/private boards.
-
-Story: See the single shared board everyone uses. Points: 2. Assigned role: backend-agent. Part of EPIC-001 (Open Access to the Shared Public Notes Board).
-
-**Related:** EPIC-001
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-
-### EPIC-002 · draft · source: plan:EPIC-002
-
-Epic covering wiki-style create, read, edit, and delete functionality for notes.
-
-Epic 'Create, Read, Edit and Delete Notes (Wiki-style)' groups US-003 (create), US-004 (read), US-005 (edit any note), US-006 (delete any note). No points or role assigned at the epic level.
-
-**Related:** US-003, US-004, US-005, US-006
-
-- ⚠ No epic-level owner/role assigned.
-- ⚠ No completion status provided.
-
-### US-003 · draft · source: plan:US-003
-
-Covers the ability to create a new note, including the underlying schema, API endpoint, and UI form.
-
-Story: Create a note. Points: 8. Assigned role: backend-agent. Part of EPIC-002. Broken into tasks: (1) US-003-T1 - create notes table schema and migration (backend-agent); (2) US-003-T2 - implement POST /api/notes endpoint with validation (backend-agent); (3) US-003-T3 - build note creation form in Angular board UI (frontend-agent).
-
-**Related:** EPIC-002
-
-- ⚠ No implementation or test evidence provided for the schema, API endpoint, or UI form tasks; only task assignments are known.
-
-### US-004 · draft · source: plan:US-004
-
-Covers displaying all notes on the shared board to the user.
-
-Story: Read all notes on the board. Points: 5. Assigned role: frontend-agent. Part of EPIC-002.
-
-**Related:** EPIC-002
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-
-### US-005 · draft · source: plan:US-005
-
-Covers editing any note on the shared board (no ownership restriction implied).
-
-Story: Edit any note. Points: 5. Assigned role: backend-agent. Part of EPIC-002.
-
-**Related:** EPIC-002
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- ⚠ Input does not clarify whether edit permissions are restricted in any way; story title suggests any user can edit any note.
-
-### US-006 · draft · source: plan:US-006
-
-Covers deleting any note on the shared board (no ownership restriction implied).
-
-Story: Delete any note. Points: 3. Assigned role: frontend-agent. Part of EPIC-002.
-
-**Related:** EPIC-002
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- ⚠ Input does not clarify whether delete permissions are restricted in any way.
-
-### EPIC-003 · draft · source: plan:EPIC-003
-
-Epic covering visibility of other users' changes when the page is refreshed.
-
-Epic 'Update Visibility on Refresh' groups US-007 (see others' changes on refresh). No points or role assigned at the epic level.
-
-**Related:** US-007
-
-- ⚠ No epic-level owner/role assigned.
-- ⚠ No completion status provided.
-
-### US-007 · draft · source: plan:US-007
-
-Covers showing changes made by other users once the page is refreshed (not necessarily real-time).
-
-Story: See others' changes on refresh. Points: 2. Assigned role: frontend-agent. Part of EPIC-003.
-
-**Related:** EPIC-003
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- ⚠ Input confirms refresh-based (not real-time/live) updates per Sprint 2 goal, but no implementation confirmation is given.
-
-### EPIC-004 · draft · source: plan:EPIC-004
-
-Epic covering reporting objectionable notes, making grievance contact info available, and removing flagged content, per IT Intermediary Rules 2021 alignment goal.
-
-Epic 'Report and Remove Objectionable Notes' groups US-008 (report a note), US-009 (grievance/contact info), US-010 (remove a reported/objectionable note). No points or role assigned at the epic level. Sprint 3 goal states this work aims to align with the IT Intermediary Rules 2021.
-
-**Related:** US-008, US-009, US-010
-
-- ⚠ No epic-level owner/role assigned.
-- ⚠ No completion status provided.
-- ⚠ Scope of IT Intermediary Rules 2021 compliance is stated only at the goal-narrative level; no detailed regulatory requirement mapping was provided to confirm full coverage.
-
-### US-008 · draft · source: plan:US-008
-
-Covers the ability to report an objectionable note, including schema, API endpoint, and UI acknowledgement.
-
-Story: Report an objectionable note. Points: 8. Assigned role: backend-agent. Part of EPIC-004. Broken into tasks: (1) US-008-T1 - add reported flag column migration (backend-agent); (2) US-008-T2 - implement POST /api/notes/{id}/report endpoint (backend-agent); (3) US-008-T3 - add report action and acknowledgement UI (frontend-agent).
-
-**Related:** EPIC-004
-
-- ⚠ No implementation or test evidence provided for the schema, endpoint, or UI tasks; only task assignments are known.
-
-### US-009 · draft · source: plan:US-009
-
-Covers making grievance/contact information available to users, relevant to IT Intermediary Rules 2021 compliance.
-
-Story: Make contact/grievance information available. Points: 3. Assigned role: backend-agent. Part of EPIC-004.
-
-**Related:** EPIC-004
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- ⚠ Content of the grievance/contact information itself is not specified in the input.
-
-### US-010 · draft · source: plan:US-010
-
-Covers removing a note that has been reported or is otherwise objectionable.
-
-Story: Remove a reported or objectionable note. Points: 3. Assigned role: frontend-agent. Part of EPIC-004.
-
-**Related:** EPIC-004
-
-- ⚠ No implementation evidence (code, ticket status) provided; only backlog assignment is known.
-- ⚠ Input does not specify who has authority to remove a reported note (e.g. moderator vs. any user).
-
-### EPIC-005 · draft · source: plan:EPIC-005
-
-Epic covering hosting notes data within India and related compliance boundaries.
-
-Epic 'India Data Hosting and Compliance Boundaries' groups US-011 (host notes data in India). No points or role assigned at the epic level.
-
-**Related:** US-011
-
-- ⚠ No epic-level owner/role assigned.
-- ⚠ No completion status provided.
-- ⚠ 'Compliance boundaries' in the epic title are not further detailed beyond data hosting location in the input.
-
-### US-011 · draft · source: plan:US-011
-
-Covers hosting the notes application's data and API within India (AWS ap-south-1 region).
-
-Story: Host notes data in India. Points: 8. Assigned role: devops-agent. Part of EPIC-005. Broken into tasks: (1) US-011-T1 - provision PostgreSQL 16 instance in AWS ap-south-1 (devops-agent); (2) US-011-T2 - deploy Flask API service to ap-south-1 infrastructure (devops-agent); (3) US-011-T3 - configure network and security between API and database (devops-agent).
-
-**Related:** EPIC-005
-
-- ⚠ No implementation or deployment evidence provided for provisioning, deployment, or network/security configuration tasks; only task assignments are known.
-- ⚠ No deployment phase input exists yet to confirm these infrastructure tasks were actually completed.
+- ⚠ No ticket-level status provided for US-002, US-004, US-005, US-006, US-007, US-008, US-008-T1, US-008-T2, US-008-T3, US-009, US-010 despite the run being marked 'completed' -- this is a discrepancy between the declared overall run status and the partial ticket data given, and should be clarified before this phase is considered fully documented.
 <!-- sdlc:auto:end narrative -->
