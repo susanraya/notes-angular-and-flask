@@ -303,7 +303,6 @@ const template = `
 })
 export default class Screen extends ScreenBase {
   loadedAt = "6 Nov 2026, 14:20";
-  stamp = "6 Nov 2026, 14:22";
   hair = "color-mix(in srgb, #111111 16%, transparent)";
   tint = "color-mix(in srgb, #111111 6%, transparent)";
   skeletons = ["s1", "s2", "s3"];
@@ -464,7 +463,11 @@ export default class Screen extends ScreenBase {
     if (!note) return;
     this.actionError.set("");
     try {
-      const updated = await apiFetch(`/api/notes/${note.id}/report`, { method: "POST" }, { auth: false });
+      const updated = await apiFetch(
+        `/api/notes/${note.id}/report`,
+        { method: "POST" },
+        { auth: false },
+      );
       this.notes.set(this.notes().map((n) => (n.id === note.id ? updated : n)));
       this.reportAck.set(updated.title || "(No title)");
     } catch {

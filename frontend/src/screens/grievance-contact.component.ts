@@ -1,7 +1,6 @@
 // @ts-nocheck -- generated from the approved design under its plain-JavaScript contract; not hand-written TypeScript.
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, signal, computed } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 
 import { ScreenBase } from "@/lib/screen-base";
 import { UI_KIT } from "@/lib/ui";
@@ -221,7 +220,7 @@ const template = `
 
 @Component({
   selector: "app-grievance-contact-screen",
-  imports: [...UI_KIT, FormsModule],
+  imports: [...UI_KIT],
   template,
 })
 export default class Screen extends ScreenBase {

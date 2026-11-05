@@ -16,6 +16,27 @@ def _serialize(note: Note) -> dict[str, object]:
     }
 
 
+def _extract_title_body(payload: object) -> tuple[str | None, str, str | None]:
+    """Pull `title` and `body` out of a request body. Returns (title, body, error).
+
+    `title` is optional; `body` must be a non-empty string once stripped. Any other
+    field the caller sends is ignored and never persisted.
+    """
+    if not isinstance(payload, dict):
+        return None, "", "body is required"
+
+    raw_body = payload.get("body")
+    if not isinstance(raw_body, str) or not raw_body.strip():
+        return None, "", "body is required"
+
+    raw_title = payload.get("title")
+    title: str | None = None
+    if isinstance(raw_title, str) and raw_title.strip():
+        title = raw_title
+
+    return title, raw_body, None
+
+
 def list_notes() -> list[dict[str, object]]:
     """All notes, newest first."""
     with SessionLocal() as session:
@@ -24,25 +45,13 @@ def list_notes() -> list[dict[str, object]]:
 
 
 def create_note(payload: object) -> tuple[dict[str, object] | None, str | None]:
-    """Create a note from a request body. Returns (note, None) or (None, error message).
-
-    Only `title` and `body` are read; any other field the caller sends is ignored and
-    never persisted. `title` is optional; `body` must be non-empty once stripped.
-    """
-    if not isinstance(payload, dict):
-        return None, "body is required"
-
-    raw_body = payload.get("body")
-    if not isinstance(raw_body, str) or not raw_body.strip():
-        return None, "body is required"
-
-    raw_title = payload.get("title")
-    title: str | None = None
-    if isinstance(raw_title, str) and raw_title.strip():
-        title = raw_title
+    """Create a note from a request body. Returns (note, None) or (None, error message)."""
+    title, body, error = _extract_title_body(payload)
+    if error is not None:
+        return None, error
 
     with SessionLocal() as session:
-        note = Note(title=title, body=raw_body)
+        note = Note(title=title, body=body)
         session.add(note)
         session.commit()
         session.refresh(note)
@@ -64,24 +73,16 @@ def update_note(id: str, payload: object) -> tuple[dict[str, object] | None, str
     if note_id is None:
         return None, "not_found"
 
-    if not isinstance(payload, dict):
-        return None, "body is required"
-
-    raw_body = payload.get("body")
-    if not isinstance(raw_body, str) or not raw_body.strip():
-        return None, "body is required"
-
-    raw_title = payload.get("title")
-    title: str | None = None
-    if isinstance(raw_title, str) and raw_title.strip():
-        title = raw_title
+    title, body, error = _extract_title_body(payload)
+    if error is not None:
+        return None, error
 
     with SessionLocal() as session:
         note = session.get(Note, note_id)
         if note is None:
             return None, "not_found"
         note.title = title
-        note.body = raw_body
+        note.body = body
         session.commit()
         session.refresh(note)
         return _serialize(note), None

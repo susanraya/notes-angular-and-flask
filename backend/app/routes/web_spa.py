@@ -3,9 +3,6 @@
 Renders the single shared board, provides create/edit/delete forms with validation, a
 report action with acknowledgement, a delete confirmation step, an empty-state message,
 and surfaces grievance/contact information. Reloads data on page refresh.
-
-Every view is a stub returning a placeholder. The shape comes from the approved
-API spec; the behaviour does not exist yet.
 """
 
 from flask import Blueprint, Response, jsonify, request

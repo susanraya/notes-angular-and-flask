@@ -1,9 +1,6 @@
 """Views for API.
 
 Endpoints the approved API spec declares without naming a component that owns them.
-
-Every view is a stub returning a placeholder. The shape comes from the approved
-API spec; the behaviour does not exist yet.
 """
 
 from flask import Blueprint, Response, jsonify
