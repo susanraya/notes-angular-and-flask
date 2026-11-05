@@ -6,7 +6,10 @@ import { expect, test } from "@playwright/test";
 
 async function postNote(page, title: string, body: string) {
   await page.goto("/");
-  await page.getByLabel(/title \(optional\)/i).first().fill(title);
+  await page
+    .getByLabel(/title \(optional\)/i)
+    .first()
+    .fill(title);
   await page.getByLabel(/note text \(required, plain text only\)/i).fill(body);
   await page.getByRole("button", { name: /post note/i }).click();
   await expect(page.getByText(`Posted "${title}"`)).toBeVisible();
@@ -70,7 +73,10 @@ test("[AC-013, AC-014] choosing delete shows a confirmation step; cancelling kee
 
   // Confirming removes it, including after a reload.
   await page.getByRole("button", { name: /delete note/i }).click();
-  await page.getByRole("dialog", { name: /delete this note permanently/i }).getByRole("button", { name: /delete note/i }).click();
+  await page
+    .getByRole("dialog", { name: /delete this note permanently/i })
+    .getByRole("button", { name: /delete note/i })
+    .click();
   await expect(page.getByText(body)).toHaveCount(0);
 
   await page.reload();

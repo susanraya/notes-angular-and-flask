@@ -25,9 +25,7 @@ def _create(title: str | None = "t", body: str = "original") -> dict:
 def test_ac010_put_updates_title_and_body_regardless_of_creator() -> None:
     created = _create(title="old", body="old body")
 
-    response = client.put(
-        f"/api/notes/{created['id']}", json={"title": "new", "body": "new body"}
-    )
+    response = client.put(f"/api/notes/{created['id']}", json={"title": "new", "body": "new body"})
 
     assert response.status_code == 200
     updated = response.get_json()
