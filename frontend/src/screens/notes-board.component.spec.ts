@@ -296,7 +296,7 @@ describe("NotesBoardScreen", () => {
     expect(fixture.nativeElement.textContent).toContain("Hello");
   });
 
-  it("calls POST /api/notes/{id}/report and reflects the returned reported flag and count", async () => {
+  it("[AC-017] selecting report calls POST /api/notes/{id}/report, records the report, and shows the visitor an acknowledgement", async () => {
     const fixture = await loadedScreen([note]);
     const reportSpy = vi.spyOn(api, "apiFetch").mockResolvedValueOnce({
       ...note,
@@ -305,7 +305,11 @@ describe("NotesBoardScreen", () => {
     });
 
     const instance = fixture.componentInstance as InstanceType<typeof Screen>;
-    await instance.reportNote();
+    const reportButton = Array.from(fixture.nativeElement.querySelectorAll("button")).find((b) =>
+      (b as HTMLElement).textContent?.trim().toLowerCase().includes("report note"),
+    ) as HTMLElement;
+    expect(reportButton).toBeTruthy();
+    reportButton.click();
     await settle(fixture);
 
     expect(reportSpy).toHaveBeenCalledWith(
@@ -313,7 +317,32 @@ describe("NotesBoardScreen", () => {
       { method: "POST" },
       { auth: false },
     );
+    // The report was recorded (reflected in the list and the per-note count)...
     expect(fixture.nativeElement.textContent).toContain("Reported 1 time");
+    expect(instance.notes().find((n: { id: string }) => n.id === "n-1").reported).toBe(true);
+    // ...and the visitor is shown an explicit acknowledgement dialog, not just a silent
+    // state change.
+    const ackDialog = fixture.nativeElement.querySelector('[role="dialog"]');
+    expect(ackDialog).toBeTruthy();
+    expect(ackDialog.textContent.toLowerCase()).toContain("reported for review");
+  });
+
+  it("[AC-017] closing the acknowledgement dismisses it without sending another request", async () => {
+    const fixture = await loadedScreen([note]);
+    vi.spyOn(api, "apiFetch").mockResolvedValueOnce({ ...note, reported: true, report_count: 1 });
+
+    const instance = fixture.componentInstance as InstanceType<typeof Screen>;
+    await instance.reportNote();
+    await settle(fixture);
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
+
+    const closeSpy = vi.spyOn(api, "apiFetch");
+    closeSpy.mockClear();
+    instance.closeReport();
+    await settle(fixture);
+
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeFalsy();
+    expect(closeSpy).not.toHaveBeenCalled();
   });
 
   it("[NFR-001] mutation calls carry no auth header, email, or personal field", async () => {
