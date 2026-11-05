@@ -100,7 +100,8 @@ def test_ac013_delete_removes_note_from_subsequent_get() -> None:
 
     response = client.delete(f"/api/notes/{created['id']}")
 
-    assert response.status_code in (200, 204)
+    # The api_spec promises 204 No Content exactly, not "200 or 204".
+    assert response.status_code == 204
 
     listing = client.get("/api/notes").get_json()
     assert all(n["id"] != created["id"] for n in listing)
@@ -157,4 +158,4 @@ def test_nfr001_mutation_endpoints_require_no_auth_and_no_personal_fields() -> N
     assert personal_data_fields.isdisjoint(report_response.get_json().keys())
 
     delete_response = client.delete(f"/api/notes/{created['id']}")
-    assert delete_response.status_code in (200, 204)
+    assert delete_response.status_code == 204
