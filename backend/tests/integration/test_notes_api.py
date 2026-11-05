@@ -69,9 +69,10 @@ def test_ac006_post_with_missing_body_returns_400_and_creates_nothing() -> None:
     response = client.post("/api/notes", json={"title": "No body"})
 
     assert response.status_code == 400
-    assert "content" in response.get_json()["message"].lower() or "body" in response.get_json()[
-        "message"
-    ].lower()
+    assert (
+        "content" in response.get_json()["message"].lower()
+        or "body" in response.get_json()["message"].lower()
+    )
     after = len(client.get("/api/notes").get_json())
     assert after == before
 

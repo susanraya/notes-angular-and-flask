@@ -17,19 +17,17 @@ describe("NotesBoardScreen", () => {
   });
 
   it("[AC-003] loads the board from GET /api/notes with no auth on init", async () => {
-    const fetchSpy = vi
-      .spyOn(api, "apiFetch")
-      .mockResolvedValue([
-        {
-          id: "n-1",
-          title: "Hello",
-          body: "World",
-          reported: false,
-          report_count: 0,
-          created_at: "now",
-          updated_at: null,
-        },
-      ]);
+    const fetchSpy = vi.spyOn(api, "apiFetch").mockResolvedValue([
+      {
+        id: "n-1",
+        title: "Hello",
+        body: "World",
+        reported: false,
+        report_count: 0,
+        created_at: "now",
+        updated_at: null,
+      },
+    ]);
     TestBed.configureTestingModule({ imports: [Screen], providers: [provideRouter([])] });
     const fixture = TestBed.createComponent(Screen);
     fixture.detectChanges();
